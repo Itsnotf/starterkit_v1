@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -59,12 +59,11 @@ export default function EditUser({ user, roles, currentRole }: Props) {
             ]}
         >
             <Head title="Edit User" />
-            <div className="m-10 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border p-4">
+            <div className="m-4 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border p-4">
                 <h1 className="text-xl font-semibold">Edit User</h1>
                 <FormProvider {...methods}>
                     <Form {...methods}>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                            {/* Name Field */}
                             <FormField
                                 name="name"
                                 render={({ field }) => (
@@ -78,7 +77,6 @@ export default function EditUser({ user, roles, currentRole }: Props) {
                                 )}
                             />
 
-                            {/* Email Field */}
                             <FormField
                                 name="email"
                                 render={({ field }) => (
@@ -92,7 +90,6 @@ export default function EditUser({ user, roles, currentRole }: Props) {
                                 )}
                             />
 
-                            {/* Password Field */}
                             <FormField
                                 name="password"
                                 render={({ field }) => (
@@ -113,8 +110,8 @@ export default function EditUser({ user, roles, currentRole }: Props) {
                                         <FormLabel>Select Role</FormLabel>
                                         <FormControl>
                                             <Select
-                                                value={field.value ? field.value.toString() : ''} // Check if field.value is null or undefined
-                                                onValueChange={(value) => field.onChange(Number(value))} // Convert value to number before updating the form state
+                                                value={field.value ? field.value.toString() : ''}
+                                                onValueChange={(value) => field.onChange(Number(value))}
                                             >
                                                 <SelectTrigger className="input">
                                                     <span>{roles.find((role) => role.id === field.value)?.name || 'Select Role'}</span>
@@ -138,9 +135,11 @@ export default function EditUser({ user, roles, currentRole }: Props) {
                                 <Button type="submit" className="w-fit">
                                     Update
                                 </Button>
-                                <Button type="button" onClick={() => router.visit(document.referrer)}>
-                                    Back
-                                </Button>
+                                <Link href="/user">
+                                    <Button type="button">
+                                        Back
+                                    </Button>
+                                </Link>
                             </div>
                         </form>
                     </Form>

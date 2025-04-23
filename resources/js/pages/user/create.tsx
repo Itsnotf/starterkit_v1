@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -51,7 +51,7 @@ export default function CreateUser({ roles }: Props) {
             ]}
         >
             <Head title="Create User" />
-            <div className="m-10 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border p-4">
+            <div className="m-4 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border p-4">
                 <h1 className="text-xl font-semibold">Create User</h1>
                 <FormProvider {...methods}>
                     <Form {...methods}>
@@ -128,9 +128,11 @@ export default function CreateUser({ roles }: Props) {
 
                             <div className="flex justify-end space-x-2">
                                 <Button type="submit">Save</Button>
-                                <Button type="button" onClick={() => router.visit(document.referrer)}>
-                                    Back
-                                </Button>
+                                <Link href="/user">
+                                    <Button type="button">
+                                        Back
+                                    </Button>
+                                </Link>
                             </div>
                         </form>
                     </Form>

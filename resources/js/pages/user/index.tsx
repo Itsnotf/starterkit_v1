@@ -1,13 +1,13 @@
+import { DataTable } from '@/components/DataTable';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { can } from '@/utils/permission';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { Edit, Trash } from 'lucide-react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { UserColumns } from './columns';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -48,6 +48,9 @@ export default function UserIndex({ users, flash }: Props) {
     };
 
     const auth = page.auth ?? { permissions: [] };
+    const canEdit = can('edit-user', auth);
+    const canDelete = can('delete-user', auth);
+    const canCreate = can('create-user', auth);
 
     const { delete: destroy } = useForm();
 
@@ -80,56 +83,7 @@ export default function UserIndex({ users, flash }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Users" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-semibold">Users</h1>
-                    {can('create-user', auth) && (
-                        <Link href="/user/create">
-                            <Button className="bg-primary">Create User</Button>
-                        </Link>
-                    )}
-                </div>
-
-                <Table className="mt-4">
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Role</TableHead>
-                            <TableHead>Actions</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {users.length === 0 ? (
-                            <TableRow>
-                                <TableCell colSpan={4} className="text-center">
-                                    No users available.
-                                </TableCell>
-                            </TableRow>
-                        ) : (
-                            users.map((user) => (
-                                <TableRow key={user.id}>
-                                    <TableCell className="w-[30%]">{user.name}</TableCell>
-                                    <TableCell className="w-[30%]">{user.email}</TableCell>
-                                    <TableCell className="w-[20%]">{user.roles[0]?.name}</TableCell>
-                                    <TableCell className="flex space-x-2">
-                                        {can('edit-user', auth) && (
-                                            <Link href={`/user/${user.id}/edit`}>
-                                                <Button variant="outline" size="sm">
-                                                    <Edit className="h-4 w-4" />
-                                                </Button>
-                                            </Link>
-                                        )}
-                                        {can('delete-user', auth) && (
-                                            <Button variant="outline" size="sm" color="destructive" onClick={() => handleDelete(user.id)}>
-                                                <Trash className="h-4 w-4" />
-                                            </Button>
-                                        )}
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        )}
-                    </TableBody>
-                </Table>
+                <DataTable columns={UserColumns(canEdit, canDelete, handleDelete)} data={users} page="user" canCreate={canCreate} />
 
                 <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger />

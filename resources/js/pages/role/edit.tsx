@@ -59,7 +59,7 @@ export default function EditRole({ role, permissions }: Props) {
             ]}
         >
             <Head title="Edit Role" />
-            <div className="m-10 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border p-4">
+            <div className="m-4 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border p-4">
                 <h1 className="text-xl font-semibold">Edit Role</h1>
                 <FormProvider {...methods}>
                     <Form {...methods}>

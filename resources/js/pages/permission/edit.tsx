@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -43,7 +43,7 @@ export default function EditPermission({ permission }: Props) {
         >
             <Head title="Edit Permission" />
 
-            <div className="m-10 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border-[1px] p-4">
+            <div className="m-4 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border-[1px] p-4">
                 <h1 className="text-xl font-semibold">Edit Permission</h1>
                 <FormProvider {...methods}>
                     <Form {...methods}>
@@ -64,9 +64,11 @@ export default function EditPermission({ permission }: Props) {
                                 <Button type="submit" className="w-fit">
                                     Update
                                 </Button>
-                                <Button type="button" onClick={() => router.visit(document.referrer)}>
-                                    Back
-                                </Button>
+                                <Link href="/permission">
+                                    <Button type="button" >
+                                        Back
+                                    </Button>{' '}
+                                </Link>
                             </div>
                         </form>
                     </Form>

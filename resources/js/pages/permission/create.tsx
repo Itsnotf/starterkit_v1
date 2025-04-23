@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -34,7 +34,7 @@ export default function CreatePermission() {
             ]}
         >
             <Head title="Create Permission" />
-            <div className="m-10 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border-[1px] p-4">
+            <div className="m-4 flex max-h-fit max-w-full flex-1 flex-col gap-4 rounded-xl border-[1px] p-4">
                 <h1 className="text-xl font-semibold">Create Permission</h1>
                 <FormProvider {...methods}>
                     <Form {...methods}>
@@ -53,7 +53,11 @@ export default function CreatePermission() {
                             />
                             <div className="flex justify-end space-x-2">
                                 <Button type="submit">Save</Button>
-                                <Button type='button' onClick={() => router.visit(document.referrer)}>Back</Button>{' '}
+                                <Link href="/permission">
+                                    <Button type="button" >
+                                        Back
+                                    </Button>{' '}
+                                </Link>
                             </div>
                         </form>
                     </Form>
