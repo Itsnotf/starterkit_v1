@@ -16,15 +16,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const page = usePage().props as {
-    auth?: {
-        permissions: string[];
-        roles?: string[];
-    };
-};
-
-const auth = page.auth ?? { permissions: [] };
-
 interface Role {
     id: number;
     name: string;
@@ -41,6 +32,15 @@ interface Props {
 export default function RoleIndex({ roles, flash }: Props) {
     const [open, setOpen] = useState(false);
     const [roleToDelete, setRoleToDelete] = useState<number | null>(null);
+
+    const page = usePage().props as {
+        auth?: {
+            permissions: string[];
+            roles?: string[];
+        };
+    };
+
+    const auth = page.auth ?? { permissions: [] };
 
     const { delete: destroy } = useForm();
 

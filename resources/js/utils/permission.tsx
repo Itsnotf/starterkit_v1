@@ -3,7 +3,7 @@ export type Role = string;
 
 interface AuthData {
   permissions: Permission[];
-  roles?: Role[]; // Optional, tergantung kamu mau cek roles juga atau enggak
+  roles?: Role[];
 }
 
 /**
