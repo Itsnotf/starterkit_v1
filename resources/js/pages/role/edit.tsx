@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -107,9 +107,11 @@ export default function EditRole({ role, permissions }: Props) {
                                 <Button type="submit" className="w-fit">
                                     Update
                                 </Button>
-                                <Button type="button" onClick={() => router.visit(document.referrer)}>
-                                    Back
-                                </Button>
+                                <Link href='/role'>
+                                    <Button type="button">
+                                        Back
+                                    </Button>
+                                </Link>
                             </div>
                         </form>
                     </Form>
