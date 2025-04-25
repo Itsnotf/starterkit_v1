@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({ columns, data, page, canCreate }: Dat
     const emptyRows = pagination.pageSize - currentRows;
 
     return (
-        <div className="rounded-md border bg-white">
+        <div className="rounded-md border bg-white dark:bg-transparent">
             <div className="flex items-center justify-between p-4">
                 <Input
                     type="text"
