@@ -32,11 +32,6 @@ export function AppSidebar() {
             href: '/user',
             icon: User,
         },
-        can('show-permission', auth) && {
-            title: 'Permission',
-            href: '/permission',
-            icon: Key,
-        },
         can('show-role', auth) && {
             title: 'Role',
             href: '/role',
